@@ -13,10 +13,10 @@ import { User } from '../user';
     <section class="login">
       <h2>Login</h2><br>
       <form>
-        <label for="username" [formField]="loginForm.username">Username:</label><br>
-        <input type="text" id="username" name="username" /><br><br>
-        <label for="password" [formField]="loginForm.password">Password:</label><br>
-        <input type="password" id="password" name="password" /><br><br>
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" [formField]="loginForm.username" name="username" /><br><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" [formField]="loginForm.password" name="password" /><br><br>
         <button class="primary" type="submit">Login</button><br>
       </form>
     </section>
