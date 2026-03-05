@@ -1,0 +1,8 @@
+{
+  "/houseapi": {
+    "target": "http://localhost:52773",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
