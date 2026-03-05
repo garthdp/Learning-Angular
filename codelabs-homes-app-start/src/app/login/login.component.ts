@@ -26,9 +26,8 @@ import { User } from '../user';
 export class LoginComponent {
   loginModel = signal<User>({ username: '', password: '', role: '' });
 
-  loginForm = form(this.loginModel, (fieldPath: { email: any; password: any; }) => {
-    required(fieldPath.email, { message: 'Email is required' });
-    email(fieldPath.email, { message: 'Invalid email format' });
+  loginForm = form(this.loginModel, (fieldPath) => {
+    required(fieldPath.username, { message: 'Username is required' });
     required(fieldPath.password, { message: 'Password is required' });
   });
 }
