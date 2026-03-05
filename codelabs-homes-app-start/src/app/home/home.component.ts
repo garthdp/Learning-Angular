@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
    housingLocationList: HousingLocation[] = [];
 
    ngOnInit() {
-    this.housingLocationList = this.housingService.getAllHousingLocations();
     this.housingService.fetchAllHousingLocations().subscribe(locations => {
       this.housingLocationList = locations;
     });
