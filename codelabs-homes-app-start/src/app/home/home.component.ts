@@ -1,11 +1,11 @@
-import { Component, Input, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HousingLocationComponent } from '../housing-location/housing-location.component';
-import { HousingLocation } from '../housing-location';
-import { HousingService } from '../housing.service';
+import { ChangeDetectorRef, Component, inject, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { HousingLocationComponent } from "../housing-location/housing-location.component";
+import { HousingLocation } from "../housing-location";
+import { HousingService } from "../housing.service";
 
 @Component({
-  selector: 'app-home',
+  selector: "app-home",
   standalone: true,
   imports: [CommonModule, HousingLocationComponent],
   template: `
@@ -16,18 +16,25 @@ import { HousingService } from '../housing.service';
       </form>
     </section>
     <section class="results">
-      <app-housing-location *ngFor="let housingLocation of housingLocationList" [housingLocation]="housingLocation"></app-housing-location>
+      <app-housing-location
+        *ngFor="let housingLocation of housingLocationList"
+        [housingLocation]="housingLocation"
+      ></app-housing-location>
     </section>
   `,
-  styleUrls: ['./home.component.css']
+  styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-   housingService: HousingService = inject(HousingService);
-   housingLocationList: HousingLocation[] = [];
+  housingService: HousingService = inject(HousingService);
+  cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
+  housingLocationList: HousingLocation[] = [];
+  loading = true;
 
-   ngOnInit() {
-    this.housingService.fetchAllHousingLocations().subscribe(locations => {
-      this.housingLocationList = locations;
+  ngOnInit() {
+    this.housingService.fetchAllHousingLocations().subscribe((locations) => {
+      this.housingLocationList = Array.isArray(locations) ? locations : [];
+      this.loading = false;
+      this.cdr.detectChanges();
     });
-   }
+  }
 }

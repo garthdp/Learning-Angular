@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {email, form, FormField, required} from '@angular/forms/signals';
 import { AuthService } from '../auth.service';
@@ -7,17 +7,17 @@ import { User } from '../user';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormField],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="login">
       <h2>Login</h2><br>
       <form>
         <label for="username">Username:</label><br>
-        <input type="text" id="username" [formField]="loginForm.username" name="username" /><br><br>
+        <input type="text" id="username" [formField]="loginForm.username" /><br><br>
         <label for="password">Password:</label><br>
-        <input type="password" id="password" [formField]="loginForm.password" name="password" /><br><br>
-        <button class="primary" type="submit">Login</button><br>
+        <input type="password" id="password" [formField]="loginForm.password"/><br><br>
+        <button class="primary" type="submit" (click)="submit()">Login</button><br>
       </form>
     </section>
   `,
@@ -25,9 +25,24 @@ import { User } from '../user';
 })
 export class LoginComponent {
   loginModel = signal<User>({ username: '', password: '', role: '' });
+  auth : AuthService = inject(AuthService);
 
   loginForm = form(this.loginModel, (fieldPath) => {
     required(fieldPath.username, { message: 'Username is required' });
     required(fieldPath.password, { message: 'Password is required' });
   });
+
+  async submit() {
+    event?.preventDefault();
+    console.log('Login form submitted with:', this.loginModel());
+    this.auth.login(this.loginModel().username, this.loginModel().password).subscribe({
+      next: (response) => {
+        console.log('Login successful:', response);
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+      }
+    });
+  }
+
 }
