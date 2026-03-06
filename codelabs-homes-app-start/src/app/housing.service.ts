@@ -31,4 +31,33 @@ export class HousingService {
       }),
     );
   }
+
+  makeHouseBooking(
+    houseId: number,
+    dateTime: string,
+  ): Observable<{ success: boolean; message: string }> {
+    return this.http
+      .post<{
+        success: boolean;
+        message: string;
+      }>(`${this.apiUrl}/booking`, { HouseID: houseId, dateTime })
+      .pipe(
+        catchError((error) => {
+          console.error(
+            `Error making booking for house with id ${houseId}:`,
+            error,
+          );
+          return of({ success: false, message: "Booking failed" });
+        }),
+      );
+  }
+
+  getUserBookings(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/booking`).pipe(
+      catchError((error) => {
+        console.error("Error fetching user bookings:", error);
+        return of([]);
+      }),
+    );
+  }
 }

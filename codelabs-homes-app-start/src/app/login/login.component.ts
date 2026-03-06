@@ -11,13 +11,13 @@ import { User } from '../user';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="login">
-      <h2>Login</h2><br>
+      <h2>Login</h2>
       <form>
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" [formField]="loginForm.username" /><br><br>
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" [formField]="loginForm.password"/><br><br>
-        <button class="primary" type="submit" (click)="submit()">Login</button><br>
+        <label for="username">Username:</label>
+        <input type="text" id="username" [formField]="loginForm.username" />
+        <label for="password">Password:</label>
+        <input type="password" id="password" [formField]="loginForm.password"/>
+        <button class="primary" type="submit" (click)="submit()">Login</button>
       </form>
     </section>
   `,
@@ -38,6 +38,7 @@ export class LoginComponent {
     this.auth.login(this.loginModel().username, this.loginModel().password).subscribe({
       next: (response) => {
         console.log('Login successful:', response);
+        window.location.href = '/';
       },
       error: (error) => {
         console.error('Login failed:', error);

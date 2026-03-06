@@ -18,9 +18,19 @@ header {
   box-shadow: 0px 5px 25px var(--shadow-color);
 }
 
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-right {
+  margin-left: auto;
+}
+
 .brand-title {
-  align-items: end;
   margin: 0;
+  white-space: nowrap;
 }
 
 .brand-logo {
@@ -31,4 +41,9 @@ header {
 
 .content {
   padding: var(--content-padding);
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
 }

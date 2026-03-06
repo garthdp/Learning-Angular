@@ -1,0 +1,14 @@
+.bookings-page h2 {
+  margin-bottom: 16px;
+}
+
+.bookings-list {
+  display: grid;
+  gap: 12px;
+  max-width: 600px;
+}
+
+.no-bookings {
+  color: #666;
+  font-style: italic;
+}
